@@ -1,0 +1,136 @@
+task: fit_habs_no_delay_stochastic_peak_stats
+dataset:
+  name: habs
+  variant: shifted_12h
+model:
+  params:
+    a1: 0.13862943611198905
+    a2: 0.03465735902799726
+    a3: 0.046209812037329684
+    b1: 0.13862943611198905
+    b2: 0.03465735902799726
+    b3: 0.046209812037329684
+    kgr: 5.0
+    tau_min: 0.0
+    x3_floor: 0.01
+    hill_coeff: 3.0
+    initial_state:
+    - 1.0
+    - 1.0
+    - 1.0
+  free_params: []
+drive:
+  kind: two_harmonic_noise
+  params:
+    a24: 0.696388551782664
+    phase24: 5.390602115373995
+    a12: 0.22061144821733605
+    phase12: 4.06252230626829
+    baseline: 1.0
+    period_min: 1440.0
+    second_period_min: 720.0
+    epsilon: 1.5
+    noise_form: lognormal
+    level: 1.0
+    amplitude: 0.0
+    phase_min: 0.0
+solver:
+  dt_min: 1.0
+  warmup_min: 1440.0
+  duration_min: 1440.0
+fit:
+  stats_mode: residual
+  signal_mode: cortisol
+  prom_sigma: 0.5
+  ibi_nan_fill: 5.0
+  cortisol_peaks_csv: experiments/runs/manuscript_peak_amplitude_direct_rayleigh_prom05/artifacts/peak_amplitude_samples.csv
+  free_params:
+  - epsilon
+  loss:
+    mode: peak_stats
+    cv_weight: 5.0
+    rel_amp_weight: 10.0
+    normalize: per_id_zscore
+    std_weight: 0.5
+  bounds:
+    epsilon:
+    - 0.1
+    - 3.0
+  optimizer:
+    name: differential_evolution
+    maxiter: 60
+    tol: 0.005
+    atol: 0.0
+    popsize: 12
+    workers: -1
+    polish: true
+    polish_maxiter: 8
+    polish_maxfun: 30
+    polish_ftol: 0.0001
+    log_every: 5
+  n_reps: 8
+  bin_size_min: 240.0
+  subsample_min: 10.0
+  min_distance_min: 60.0
+  acth_prom_factor: 0.3
+  cortisol_prom_factor: 0.3
+  min_drive_amplitude: 1.0
+  max_nfev: 32
+runtime:
+  seed: 42
+  noise_form: multiplicative
+  noise_locations: []
+  noise_epsilons: {}
+  n_reps: 1
+comparison:
+  bootstrap_reps: 500
+  n_reps_per_damped_candidate: 8
+  winner_margin_ratio: 1.1
+  optimizer_maxiter: 6
+  optimizer_popsize: 6
+analysis:
+  normalize: per_id_zscore
+  arrow_stride_min: 240.0
+  bandpass_min_period_hours: 1.0
+  bandpass_max_period_hours: 6.0
+  filter_order: 2
+  detrend: true
+  edge_trim_hours: 2.0
+  resample_dt_min: 20.0
+  max_crosscorr_lag_hours: 6.0
+  autocorr_min_period_hours: 1.0
+  autocorr_max_period_hours: 6.0
+  flow_taus_min:
+  - 0.0
+  - 20.0
+  - 40.0
+  - 60.0
+  - 80.0
+  - 100.0
+  - 120.0
+  flow_grid_size: 14
+  flow_bandwidth_scale: 0.45
+  flow_min_effective_samples: 2.0
+  flow_padding: 0.35
+damped_model:
+  bounds:
+    period_hr:
+    - 1.0
+    - 6.0
+    decay_rate_per_hr:
+    - 0.05
+    - 2.0
+    sigma:
+    - 0.01
+    - 3.0
+delay_model:
+  bounds:
+    kgr:
+    - 0.5
+    - 100.0
+    tau_min:
+    - 0.0
+    - 120.0
+    drive_baseline:
+    - 0.5
+    - 2.0
