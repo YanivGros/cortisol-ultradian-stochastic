@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: "Code for: The stochastic nature of cortisol ultradian rhythms"
+message: "If you use this software, please cite the archived release and the paper."
+type: software
+license: MIT
+version: 1.0.0
+doi: 10.5281/zenodo.21776037
+repository-code: "https://github.com/YanivGros/cortisol-ultradian-stochastic"
+authors:
+  - family-names: Grosskopf
+    given-names: Yaniv
+    affiliation: "Department of Molecular Cell Biology, Weizmann Institute of Science"
+  - family-names: Danan
+    given-names: Dor
+    affiliation: "Department of Molecular Cell Biology, Weizmann Institute of Science"
+  - family-names: Pidham
+    given-names: Glen
+    affiliation: "Department of Molecular Cell Biology, Weizmann Institute of Science"
+  - family-names: Doenyas-Barak
+    given-names: Keren
+    affiliation: "Sagol Center for Hyperbaric Medicine and Research, Shamir Medical Center"
+  - family-names: Mayo
+    given-names: Avi
+    affiliation: "Department of Molecular Cell Biology, Weizmann Institute of Science"
+  - family-names: Alon
+    given-names: Uri
+    affiliation: "Department of Molecular Cell Biology, Weizmann Institute of Science"
+    email: uri.alon@weizmann.ac.il
+keywords:
+  - cortisol
+  - ultradian rhythm
+  - HPA axis
+  - noise-driven oscillator
+  - glucocorticoid receptor
+  - systems biology
